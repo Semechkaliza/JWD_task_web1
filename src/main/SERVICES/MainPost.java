@@ -29,27 +29,24 @@ public class MainPost extends HttpServlet {
         protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
             request.setCharacterEncoding("utf-8");
             response.setContentType("text/html");
-            ResultSet result= FindElement.find(request.getParameter("name"),request.getParameter("surname"));
+            String currentSurname="null";
+            if(!request.getParameter("surname").isEmpty()){
+                currentSurname=request.getParameter("surname");
+            }
+            ResultSet result= FindElement.find(request.getParameter("name"),currentSurname);
+            List<ResultEntity> resList = new ArrayList<ResultEntity>();
             try {
-                result.next();
-                System.out.println(result.getString("phone"));
+            while (result.next()) {
+                ResultEntity res=new ResultEntity();
+                    res.setName(result.getString("name"));
+                    res.setSurname(result.getString("surname"));
+                    res.setPhone(result.getString("phone"));
+                    res.setEmail(result.getString("email"));
+                resList.add(res);
+            }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-            ResultEntity res=new ResultEntity();
-            try {
-                res.setName(result.getString("name"));
-                res.setSurname(result.getString("surname"));
-                res.setPhone(result.getString("phone"));
-                res.setEmail(result.getString("email"));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            System.out.println(res.toString());
-            List<ResultEntity> resList =new ArrayList<ResultEntity>();
-            resList.add(res);
-
             request.setAttribute("mybean",resList);
             request.getRequestDispatcher("usebean.jsp").forward(request,response);
         }

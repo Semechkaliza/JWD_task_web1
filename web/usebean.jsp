@@ -9,6 +9,7 @@
     <title> Insert title here </title>
 </head>
 <body>
+<h1>Hello,world!</h1>
 <table>
     <c:forEach items="${requestScope.mybean}" var="users">
         <tr>
