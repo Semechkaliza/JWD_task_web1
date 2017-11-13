@@ -1,7 +1,5 @@
 package ENTITY;
 
-import java.util.Date;
-
 public class ResultEntity{
     private String name;
     private String surname;

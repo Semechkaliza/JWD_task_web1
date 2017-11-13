@@ -9,10 +9,16 @@
     <title> Insert title here </title>
 </head>
 <body>
-<h1>Hello,world!</h1>
-<table>
+
+<table border="1">
+    <tr>
+    <td>name</td>
+    <td>surname</td>
+    <td>phone</td>
+    <td>email</td>
+    </tr><tr>
     <c:forEach items="${requestScope.mybean}" var="users">
-        <tr>
+
             <td>${users.name}</td>
             <td>${users.surname}</td>
             <td>${users.phone}</td>

@@ -21,29 +21,20 @@ public class MainPost extends HttpServlet {
             super();
         }
 
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
-            // TODO Auto-generated method stub
-            System.out.println("doGet");
-        }
-
         protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
             request.setCharacterEncoding("utf-8");
             response.setContentType("text/html");
-            String currentSurname="null";
-            if(!request.getParameter("surname").isEmpty()){
-                currentSurname=request.getParameter("surname");
-            }
-            ResultSet result= FindElement.find(request.getParameter("name"),currentSurname);
+            ResultSet result= FindElement.find(request.getParameter("name"),request.getParameter("surname"));
             List<ResultEntity> resList = new ArrayList<ResultEntity>();
             try {
-            while (result.next()) {
+             while (result.next()) {
                 ResultEntity res=new ResultEntity();
                     res.setName(result.getString("name"));
                     res.setSurname(result.getString("surname"));
                     res.setPhone(result.getString("phone"));
                     res.setEmail(result.getString("email"));
                 resList.add(res);
-            }
+           }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
